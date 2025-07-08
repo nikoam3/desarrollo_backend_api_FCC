@@ -34,8 +34,9 @@ app.post('/api/shorturl', (req, res) => {
   const originalUrl = req.body.url;
 
   // Validar formato básico de la URL (middleaware)
-  const urlRegex = /^https?:\/\/(www\.)?[\w-]+\.[a-zA-Z]{2,}(\/.*)?$/;
+  const urlRegex = /^https?:\/\/([\w-]+\.)*[\w-]+\.[a-zA-Z]{2,}(:\d+)?(\/.*)?$/;
   if (!urlRegex.test(originalUrl)) {
+    console.log('Invalid URL format:', originalUrl);
     return res.json({ error: 'invalid url' });
   }
 
@@ -43,8 +44,8 @@ app.post('/api/shorturl', (req, res) => {
   let parsedUrl;
   try {
     parsedUrl = new URL(originalUrl);
-    console.log(parsedUrl);
   } catch (err) {
+    console.log('Error parsing URL:', originalUrl, err);
     return res.json({ error: 'invalid url' });
   }
   const hostname = parsedUrl.hostname;
