@@ -32,6 +32,7 @@ const urlDatabase = [];
 // Ruta POST para crear una URL corta
 app.post('/api/shorturl', (req, res) => {
   const originalUrl = req.body.url;
+  console.log(`Received URL: ${originalUrl}`);
 
   // Validar formato básico de la URL (middleaware)
   const urlRegex = /^https?:\/\/(www\.)?[\w-]+\.[a-zA-Z]{2,}(\/.*)?$/;
